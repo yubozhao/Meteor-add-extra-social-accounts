@@ -89,10 +89,10 @@ var selfRegister = {
 //这个是基于我想法, 以Facebook为例
 
 var unifyAccount = function(options){
-  var user = Meteor.users.findOne(this.userId);
+  var user = Meteor.users.findOne(Meteor.userId());
   if(user.services.facebook == null){
     Meteor.users.update(
-      {_id: this.userId},
+      {_id: Meteor.userId()},
       {$set: {'services.facebook': options.facebook}}
     );
   };
@@ -100,3 +100,6 @@ var unifyAccount = function(options){
 
 
 //出现的问题在于, 开发者不一定添加accounts packages, 需要修改的地方反而在于那里, 比较烦. 
+
+
+//for password, we can just write to the password package
